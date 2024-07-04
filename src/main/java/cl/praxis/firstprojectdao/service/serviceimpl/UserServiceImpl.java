@@ -1,4 +1,43 @@
 package cl.praxis.firstprojectdao.service.serviceimpl;
 
-public class UserService {
+import cl.praxis.firstprojectdao.dao.UserDAO;
+import cl.praxis.firstprojectdao.dao.daoimpl.UserDAOImpl;
+import cl.praxis.firstprojectdao.model.UserDTO;
+import cl.praxis.firstprojectdao.service.UserService;
+
+import java.util.List;
+
+public class UserServiceImpl implements UserService {
+
+    private final UserDAO objUserDao;
+
+    public UserServiceImpl() {
+        this.objUserDao = new UserDAOImpl() {
+        };
+    }
+
+    @Override
+    public UserDTO selectUser(int id) {
+        return objUserDao.selectUser(id);
+    }
+
+    @Override
+    public List<UserDTO> selectAllUsers() {
+        return objUserDao.selectAllUsers();
+    }
+
+    @Override
+    public UserDTO insertUser(UserDTO user) {
+        return objUserDao.insertUser(user);
+    }
+
+    @Override
+    public UserDTO updateUser(UserDTO user) {
+        return objUserDao.updateUser(user);
+    }
+
+    @Override
+    public boolean deleteUser(int id) {
+        return objUserDao.deleteUser(id);
+    }
 }
