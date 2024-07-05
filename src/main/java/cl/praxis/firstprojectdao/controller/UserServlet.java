@@ -50,6 +50,15 @@ public class UserServlet extends HttpServlet {
                 case "view":
                     viewUser(request, response);
                     break;
+                case "active":
+                    activeUser(request, response);
+                    break;
+                case "deactive":
+                    deactiveUser(request, response);
+                    break;
+                case "viewAllMostOne":
+                    viewAllMostOne(request, response);
+                    break;
                 default:
                     listUsers(request, response);
                     break;
@@ -71,6 +80,27 @@ public class UserServlet extends HttpServlet {
         request.getRequestDispatcher("user-list.jsp").forward(request, response);
     }
 
+    private void viewAllMostOne(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<UserDTO> listUsers = objUserService.selectAllMostOne();
+        request.setAttribute("listUsers", listUsers);
+        request.getRequestDispatcher("user-list.jsp").forward(request, response);
+    }
+
+    private void activeUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        UserDTO foundUser = objUserService.selectUser(id);
+        objUserService.activateUser(foundUser);
+        response.sendRedirect("user");
+    }
+
+    private void deactiveUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        UserDTO foundUser = objUserService.selectUser(id);
+        objUserService.deactivateUser(foundUser);
+        response.sendRedirect("user");
+    }
+
     // Método para mostrar el formulario para un nuevo usuario
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -84,7 +114,8 @@ public class UserServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         int age = Integer.parseInt(request.getParameter("age"));
-        UserDTO newUser = new UserDTO(name,lastName,email,age);
+        int isActive = Integer.parseInt("1");
+        UserDTO newUser = new UserDTO(name,lastName,email,age,isActive);
         objUserService.insertUser(newUser);
         response.sendRedirect("user");
     }
@@ -106,7 +137,8 @@ public class UserServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         Integer age = Integer.parseInt(request.getParameter("age"));
-        UserDTO user = new UserDTO(id, name, lastName, email, age);
+        Integer isActive = Integer.parseInt(request.getParameter("isActive"));
+        UserDTO user = new UserDTO(id, name, lastName, email, age, isActive);
         objUserService.updateUser(user);
         response.sendRedirect("user");
     }
@@ -127,4 +159,5 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("user", user);
         request.getRequestDispatcher("user-view.jsp").forward(request, response);
     }
+
 }

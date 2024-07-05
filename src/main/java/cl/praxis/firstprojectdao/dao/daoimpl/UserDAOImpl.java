@@ -13,10 +13,10 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
-    private static final String SELECT_ALL_USERS = "SELECT idusuario, nombre, apellido, email, edad FROM usuarios";
-    private static final String SELECT_USER_BY_ID = "SELECT idusuario, nombre, apellido, email, edad FROM usuarios WHERE idusuario = ?";
-    private static final String INSERT_USER_SQL = "INSERT INTO usuarios (nombre, apellido, email, edad) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_USER_SQL = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, edad = ? WHERE idusuario = ?";
+    private static final String SELECT_ALL_USERS = "SELECT idusuario, nombre, apellido, email, edad, isactive FROM usuarios";
+    private static final String SELECT_USER_BY_ID = "SELECT idusuario, nombre, apellido, email, edad, isactive FROM usuarios WHERE idusuario = ?";
+    private static final String INSERT_USER_SQL = "INSERT INTO usuarios (nombre, apellido, email, edad, isactive) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_USER_SQL = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, edad = ?, isactive ? WHERE idusuario = ?";
     private static final String DELETE_USER_SQL = "DELETE FROM usuarios WHERE idusuario = ?";
 
     public UserDAOImpl() {
@@ -35,7 +35,8 @@ public class UserDAOImpl implements UserDAO {
                 String lastName = rs.getString("apellido");
                 String email = rs.getString("email");
                 int age = rs.getInt("edad");
-                user = new UserDTO(id, name, lastName, email, age);
+                int isActive = rs.getInt("isActive");
+                user = new UserDTO(id, name, lastName, email, age, isActive);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -55,7 +56,8 @@ public class UserDAOImpl implements UserDAO {
                 String lastName = rs.getString("apellido");
                 String email = rs.getString("email");
                 int age = rs.getInt("edad");
-                users.add(new UserDTO(id, name, lastName, email, age));
+                int isActive = rs.getInt("isActive");
+                users.add(new UserDTO(id, name, lastName, email, age, isActive));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -76,7 +78,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
-                newUser = new UserDTO(id, user.getName(), user.getLastName(), user.getEmail(), user.getAge());
+                newUser = new UserDTO(id, user.getName(), user.getLastName(), user.getEmail(), user.getAge(), user.getIsActive());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -92,7 +94,8 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setInt(4, user.getAge());
-            preparedStatement.setInt(5, user.getUserId());
+            preparedStatement.setInt(5, user.getIsActive());
+            preparedStatement.setInt(6, user.getUserId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

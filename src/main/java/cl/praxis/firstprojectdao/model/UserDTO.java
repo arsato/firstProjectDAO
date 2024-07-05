@@ -14,11 +14,13 @@ public class UserDTO {
     private String lastName;
     private String email;
     private int age;
+    private int isActive;
 
-    public UserDTO(String name, String lastName, String email, int age) {
+    public UserDTO(String name, String lastName, String email, int age, int isActive) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+        this.isActive = isActive;
     }
 }

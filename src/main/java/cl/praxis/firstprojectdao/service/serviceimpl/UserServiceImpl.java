@@ -27,6 +27,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDTO> selectAllMostOne() {
+        List<UserDTO> users = objUserDao.selectAllUsers();
+        users.remove(users.size() - 1);
+        return users;
+    }
+
+    @Override
+    public void deactivateUser(UserDTO user) {
+        UserDTO findUser = objUserDao.selectUser(user.getUserId());
+        findUser.setIsActive(0);
+        objUserDao.updateUser(findUser);
+    }
+
+    @Override
+    public void activateUser(UserDTO user) {
+        UserDTO findUser = objUserDao.selectUser(user.getUserId());
+        findUser.setIsActive(1);
+        objUserDao.updateUser(findUser);
+    }
+
+    @Override
     public UserDTO insertUser(UserDTO user) {
         return objUserDao.insertUser(user);
     }

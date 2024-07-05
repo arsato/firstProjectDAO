@@ -6,6 +6,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Clase Singleton que llama a la conexión y además mantiene el patrón único
+ */
+/*Lombok llama al getter*/
 @Getter
 public class MysqlConnection {
     private static MysqlConnection instance;
@@ -22,10 +26,6 @@ public class MysqlConnection {
             throw new SQLException(e);
         }
     }
-
-//    public Connection getConnection() {
-//        return connection;
-//    }
 
     public static MysqlConnection getInstance() throws SQLException {
         if (instance == null) {

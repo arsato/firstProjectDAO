@@ -19,6 +19,7 @@
 <p>Last Name: ${user.lastName}</p>
 <p>Email: ${user.email}</p>
 <p>Age: ${user.age}</p>
+<p>Is Active: ${user.isActive}</p>
 <a href="user">Back to User List</a>
 </body>
 </html>

@@ -15,4 +15,10 @@ public interface UserService {
     public UserDTO updateUser(UserDTO user);
 
     public boolean deleteUser(int id);
+
+    public List<UserDTO> selectAllMostOne();
+
+    public void deactivateUser(UserDTO user);
+
+    public void activateUser(UserDTO user);
 }

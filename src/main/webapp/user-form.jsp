@@ -23,6 +23,8 @@
     <input type="email" id="email" name="email" value="${user.email}" required><br>
     <label for="age">Age:</label>
     <input type="number" id="age" name="age" value="${user.age}" required><br>
+    <label for="isActive">is Active:</label>
+    <input type="number" id="isActive" name="isActive" value="${user.isActive}" required><br>
     <input type="submit" value="${user == null ? 'Add' : 'Update'}">
 </form>
 <a href="user">Back to User List</a>

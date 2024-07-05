@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>User List</h1>
-<a href="user?action=new">Add New User</a>
+<a href="user?action=new">Add New User</a><br>
+<a href="user?action=viewAllMostOne">All Most One</a>
 <table border="1">
   <tr>
     <th>ID</th>
@@ -15,6 +16,7 @@
     <th>Last Name</th>
     <th>Email</th>
     <th>Age</th>
+    <th>Active</th>
     <th>Actions</th>
   </tr>
   <!-- Iterar sobre la lista de usuarios y mostrar sus datos en la tabla -->
@@ -25,9 +27,12 @@
       <td>${user.lastName}</td>
       <td>${user.email}</td>
       <td>${user.age}</td>
+      <td>${user.isActive}</td>
       <td>
         <a href="user?action=view&id=${user.userId}">View</a>
         <a href="user?action=edit&id=${user.userId}">Edit</a>
+        <a href="user?action=activeUser&id=${user.userId}" onclick="return confirm('Are you sure?')">Active</a>
+        <a href="user?action=deactiveUser&id=${user.userId}" onclick="return confirm('Are you sure?')">Deactive</a>
         <a href="user?action=delete&id=${user.userId}" onclick="return confirm('Are you sure?')">Delete</a>
       </td>
     </tr>
