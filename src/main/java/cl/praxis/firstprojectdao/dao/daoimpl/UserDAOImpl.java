@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String SELECT_ALL_USERS = "SELECT idusuario, nombre, apellido, email, edad, isactive FROM usuarios";
     private static final String SELECT_USER_BY_ID = "SELECT idusuario, nombre, apellido, email, edad, isactive FROM usuarios WHERE idusuario = ?";
     private static final String INSERT_USER_SQL = "INSERT INTO usuarios (nombre, apellido, email, edad, isactive) VALUES (?, ?, ?, ?, ?)";
-    private static final String UPDATE_USER_SQL = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, edad = ?, isactive ? WHERE idusuario = ?";
+    private static final String UPDATE_USER_SQL = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, edad = ?, isactive = ? WHERE idusuario = ?";
     private static final String DELETE_USER_SQL = "DELETE FROM usuarios WHERE idusuario = ?";
 
     public UserDAOImpl() {

@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
@@ -87,14 +88,14 @@ public class UserServlet extends HttpServlet {
         request.getRequestDispatcher("user-list.jsp").forward(request, response);
     }
 
-    private void activeUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void activeUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         UserDTO foundUser = objUserService.selectUser(id);
         objUserService.activateUser(foundUser);
         response.sendRedirect("user");
     }
 
-    private void deactiveUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void deactiveUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         UserDTO foundUser = objUserService.selectUser(id);
         objUserService.deactivateUser(foundUser);
@@ -137,7 +138,7 @@ public class UserServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         Integer age = Integer.parseInt(request.getParameter("age"));
-        Integer isActive = Integer.parseInt(request.getParameter("isActive"));
+        Integer isActive = Objects.isNull(request.getParameter("isActive")) ? 0 : 1;
         UserDTO user = new UserDTO(id, name, lastName, email, age, isActive);
         objUserService.updateUser(user);
         response.sendRedirect("user");

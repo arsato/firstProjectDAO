@@ -27,12 +27,11 @@
       <td>${user.lastName}</td>
       <td>${user.email}</td>
       <td>${user.age}</td>
-      <td>${user.isActive}</td>
+      <td>${user.isActive == 1 ? 'Active' : 'Inactive'}</td>
       <td>
         <a href="user?action=view&id=${user.userId}">View</a>
         <a href="user?action=edit&id=${user.userId}">Edit</a>
-        <a href="user?action=activeUser&id=${user.userId}" onclick="return confirm('Are you sure?')">Active</a>
-        <a href="user?action=deactiveUser&id=${user.userId}" onclick="return confirm('Are you sure?')">Deactive</a>
+        <a href="${ user.isActive == 1 ? 'user?action=deactive&id='.concat(user.userId): 'user?action=active&id='.concat(user.userId)}" onclick="return confirm('Are you sure?')">${user.isActive == 1 ? 'Deactivate' : 'Activate'}</a>
         <a href="user?action=delete&id=${user.userId}" onclick="return confirm('Are you sure?')">Delete</a>
       </td>
     </tr>

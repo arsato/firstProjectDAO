@@ -18,7 +18,7 @@ public interface UserService {
 
     public List<UserDTO> selectAllMostOne();
 
-    public void deactivateUser(UserDTO user);
+    public UserDTO deactivateUser(UserDTO user);
 
-    public void activateUser(UserDTO user);
+    public UserDTO activateUser(UserDTO user);
 }

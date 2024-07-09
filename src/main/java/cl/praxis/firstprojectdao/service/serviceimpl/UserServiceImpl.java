@@ -34,17 +34,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deactivateUser(UserDTO user) {
+    public UserDTO deactivateUser(UserDTO user) {
         UserDTO findUser = objUserDao.selectUser(user.getUserId());
         findUser.setIsActive(0);
-        objUserDao.updateUser(findUser);
+        return objUserDao.updateUser(findUser);
     }
 
     @Override
-    public void activateUser(UserDTO user) {
+    public UserDTO activateUser(UserDTO user) {
         UserDTO findUser = objUserDao.selectUser(user.getUserId());
         findUser.setIsActive(1);
-        objUserDao.updateUser(findUser);
+        return objUserDao.updateUser(findUser);
     }
 
     @Override
